@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<group android:checkableBehavior="single">
+    <item android:id="@+id/UpdateTimetable"
+        android:icon="@drawable/baseline_access_time_24"
+        android:title="UpdateTimetable"
+        />
+    <item android:id="@+id/Language"
+        android:icon="@drawable/baseline_language_24"
+        android:title="Language"
+        />
+    <item android:id="@+id/Setting"
+        android:icon="@drawable/baseline_settings_24"
+        android:title="Setting"
+        />
+    <item android:id="@+id/Shared_app"
+        android:icon="@drawable/baseline_share_24"
+        android:title="Shared App"
+        />
+    <item android:id="@+id/rate_us"
+        android:icon="@drawable/baseline_star_rate_24"
+        android:title="Rate Us"
+        />
+    <item android:id="@+id/repotissue"
+        android:icon="@drawable/baseline_bug_report_24"
+        android:title="Report Issue"
+        />
+    <item android:id="@+id/suggest"
+        android:icon="@drawable/baseline_lightbulb_24"
+        android:title="Suggest a Feature"
+        />
+
+
+    <item android:id="@+id/invite"
+        android:icon="@drawable/baseline_man_2_24"
+        android:title="Invite Friends"
+        />
+    <item android:id="@+id/Whatsapp"
+        android:icon="@drawable/baseline_mobile_screen_share_24"
+        android:title="Share in Whatsapp"
+        />
+    <item android:id="@+id/logout"
+        android:icon="@drawable/baseline_logout_24"
+        android:title="Logout"
+        />
+</group>
+</menu>

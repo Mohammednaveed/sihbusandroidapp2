@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:padding="20dp"
+    android:orientation="vertical"
+    android:background="@drawable/bg"
+    android:gravity="bottom">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bus Tracking System "
+        android:textColor="#fff"
+        android:textSize="30dp"
+        android:textStyle="bold"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="utkarsh25062001@gmail.com"
+
+        android:textColor="#fff"
+        android:textSize="18dp"
+        />
+</LinearLayout>

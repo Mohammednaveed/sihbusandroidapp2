@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "672447756097",
+    "project_id": "final-bus-traking",
+    "storage_bucket": "final-bus-traking.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672447756097:android:a1a2abc36e1f4f5f0d53c0",
+        "android_client_info": {
+          "package_name": "com.example.finalbustraking"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg9jcGDYvXGXmXcoJ12Yj9NFMAoR23ugA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

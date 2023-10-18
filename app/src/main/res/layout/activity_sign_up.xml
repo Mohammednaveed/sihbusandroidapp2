@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".SignUpActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/my_primary"
+        android:alpha="0.7"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_above="@id/card_view"
+        android:padding="20dp"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/location_icon"
+            android:contentDescription="todo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Go Map"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="32sp"
+            android:textColor="@color/white"/>
+
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:cardCornerRadius="28dp"
+        android:layout_marginBottom="-20dp"
+        android:id="@+id/card_view"
+        tools:ignore="VisualLintBounds">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/pass_edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome SignUP"
+                android:textColor="@color/my_primary"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.7"
+                android:text="Please Sign Up with your Information" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="15dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.7"
+                android:text="Full Name"
+                android:textColor="#78909C"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/name_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:drawableEnd="@drawable/done_icon"
+                android:inputType="text"
+                android:minHeight="48dp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.7"
+                android:text="Email Address"
+                android:textColor="#78909C"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/email_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:drawableEnd="@drawable/done_icon"
+                android:inputType="textEmailAddress"
+                android:minHeight="48dp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.7"
+                android:text=" Create New Password"
+                android:textColor="#78909C"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+
+            <EditText
+                android:id="@+id/passedit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:drawableEnd="@drawable/password_icon"
+                android:inputType="textPassword"
+                android:minHeight="48dp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="10dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.7"
+                android:text="Enter Mobile Number"
+                android:textColor="#78909C"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+            <EditText
+                android:id="@+id/phone_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:inputType="number"
+                android:minHeight="48dp"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="10dp" />
+            <!--            <TextView-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:alpha="0.7"-->
+            <!--                android:text=" Confirm New Password"-->
+            <!--                android:textColor="#78909C"-->
+            <!--                android:textStyle="bold"-->
+            <!--                tools:ignore="HardcodedText" />-->
+            <!--            <EditText-->
+            <!--                android:id="@+id/com_new_pass"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:autofillHints=""-->
+            <!--                android:drawableEnd="@drawable/password_icon"-->
+            <!--                android:inputType="textPassword"-->
+            <!--                android:minHeight="48dp"-->
+            <!--                tools:ignore="LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />-->
+
+            <!--            <View-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="10dp" />-->
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="5dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/singnup_button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="SignUp"
+                app:cornerRadius="32dp"
+                tools:ignore="VisualLintButtonSize" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:alpha="0.7"
+                android:text="Or Sign Up with"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/login_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|right"
+                android:alpha="0.7"
+                android:text="Or Login"
+                android:textColor="#3F51B5"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_margin="12dp"
+                    android:background="@drawable/facebook"
+                    android:contentDescription="todo1" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="12dp"
+                    android:background="@drawable/gmail"
+                    tools:ignore="ContentDescription" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+

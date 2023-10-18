@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">final Bus Traking</string>
+    <string name="open">Open navigation </string>
+    <string name="close">close navigation </string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyA1wvw811CiBju4tldl8sES964dLocst1g</string>
+
+</resources>
