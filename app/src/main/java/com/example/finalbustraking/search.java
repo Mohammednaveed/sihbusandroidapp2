@@ -115,17 +115,5 @@ public class search extends AppCompatActivity {
     private void setRadioState(RadioButton radioButton, boolean checked) {
         radioButton.setChecked(checked);
     }
-    private void updateUIWithBusData(Bus bus) {
-        TextView busNumber = findViewById(R.id.busnumber);
-        TextView startTime = findViewById(R.id.starttime);
-        TextView endTime = findViewById(R.id.endtime);
-        TextView busName = findViewById(R.id.busname);
 
-        // ... (find other views by their IDs)
-
-        busNumber.setText(bus.getbusnumber());
-        startTime.setText(bus.getStartTime());
-        endTime.setText(bus.getendTime());
-        busName.setText(bus.getbusName());
-    }
 }

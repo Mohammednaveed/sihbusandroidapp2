@@ -9,13 +9,13 @@
     tools:ignore="MissingDefaultResource">
 
     <RelativeLayout
+        android:id="@+id/busclick"
         android:layout_width="match_parent"
         android:layout_height="85dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:background="@drawable/rounded_background"
 
-        >
+        android:background="@drawable/rounded_background">
 
         <TextView
             android:id="@+id/busnumber"
@@ -28,7 +28,7 @@
 
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="18dp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/starttime"
@@ -40,7 +40,7 @@
             android:textAlignment="center"
 
             android:textColor="@color/black"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <ImageView
@@ -54,7 +54,8 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
 
-            android:src="@drawable/baseline_arrow_forward_24" />
+            android:src="@drawable/baseline_arrow_forward_24"
+            android:contentDescription="TODO" />
 
         <TextView
             android:id="@+id/endtime"
@@ -66,7 +67,7 @@
             android:textAlignment="center"
 
             android:textColor="@color/black"
-            android:textSize="18dp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/busname"
@@ -79,7 +80,7 @@
             android:text="Bus Name"
 
             android:textColor="@color/black"
-            android:textSize="17dp" />
+            android:textSize="17sp" />
 
         <TextView
             android:layout_width="100dp"
@@ -92,12 +93,13 @@
 
             android:textColor="@color/my_primary"
 
-            android:textSize="15dp"
+            android:textSize="15sp"
             tools:ignore="TextSizeCheck" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="83dp"
-            android:background="@color/gray"/>
+            android:background="@color/gray" />
     </RelativeLayout>
 </LinearLayout>
