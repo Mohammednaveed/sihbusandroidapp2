@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="320dp"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="310dp"
+        android:layout_height="80dp"
+        android:background="@color/my_primary"
+        android:paddingLeft="0dp"
+        android:text="Choose the date when the bus started from source Place"
+        android:textColor="@color/white"
+        android:paddingRight="10dp"
+        android:paddingStart="10dp"
+        android:textSize="17dp"
+        android:textAlignment="center"
+        android:paddingTop="20dp"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="310dp"
+        android:layout_height="195dp"
+        android:orientation="vertical"
+        android:paddingLeft="20dp">
+
+        <RadioButton
+            android:id="@+id/option1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All Dates"
+            android:textColor="@color/black"/>
+
+        <RadioButton
+            android:id="@+id/option2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Today"
+            android:textColor="@color/black"/>
+
+        <RadioButton
+
+            android:id="@+id/option3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tomorrow"
+            android:textColor="@color/black" />
+
+        <RadioButton
+            android:id="@+id/option4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose from Calendar"
+            android:textColor="@color/black" />
+
+        <!-- Add more radio buttons as needed -->
+
+    </RadioGroup>
+
+    <View
+        android:layout_width="310dp"
+        android:layout_height="2dp"
+        android:background="#80666666"/>
+
+    <TextView
+        android:id="@+id/Cancel"
+        android:layout_width="310dp"
+        android:layout_height="match_parent"
+        android:paddingTop="8dp"
+        android:text="Cancel"
+        android:textAlignment="center"
+        android:textColor="@color/black" />
+</LinearLayout>

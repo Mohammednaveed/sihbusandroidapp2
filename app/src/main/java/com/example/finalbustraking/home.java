@@ -6,6 +6,7 @@ import android.animation.ValueAnimator;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -121,12 +122,21 @@ public class home extends AppCompatActivity {
             public void onClick(View view) {
                 String Source= autoSourceTextView.getText().toString();
                 String Destination = autoDesTextView.getText().toString();
-                Intent intent =new Intent(home.this,search.class);
-                intent.putExtra("Source", Source);
-                intent.putExtra("Destination", Destination);
+                if(TextUtils.isEmpty(Source) || TextUtils.isEmpty(Destination)){
+                    Toast.makeText(home.this, "Enter the field properly", Toast.LENGTH_SHORT).show();
 
-                startActivity(intent);
+                } else if (Source.equals(Destination)) {
 
+                    Toast.makeText(home.this, "Both field should not be same ", Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+                    Intent intent = new Intent(home.this, search.class);
+                    intent.putExtra("Source", Source);
+                    intent.putExtra("Destination", Destination);
+
+                    startActivity(intent);
+                }
             }
         });
 
