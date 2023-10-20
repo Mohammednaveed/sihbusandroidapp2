@@ -12,11 +12,13 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.provider.Settings;
+import android.service.notification.StatusBarNotification;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -40,6 +42,9 @@ public class LocationSharingService  extends Service {
 
     private FusedLocationProviderClient fusedLocationClient;
     private LocationCallback locationCallback;
+    private Handler notificationHandler;
+    private static final long NOTIFICATION_CHECK_INTERVAL = 6000; // Check every minute
+
     public static final String ACTION_START = "com.example.finalbustraking.START_LOCATION";
     public static final String ACTION_STOP = "com.example.finalbustraking.STOP_LOCATION";
     private WakeLock wakeLock; // Declare the WakeLock as a class-level variable
@@ -53,7 +58,8 @@ public class LocationSharingService  extends Service {
     public void onCreate() {
         super.onCreate();
         createNotificationChannel(); // Create the notification channel
-
+        notificationHandler = new Handler();
+        startNotificationChecker();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
@@ -192,4 +198,31 @@ public class LocationSharingService  extends Service {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
+    private void startNotificationChecker() {
+        notificationHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (isLocationSharing && !isNotificationVisible()) {
+                    // If location sharing is active and the notification is not visible, recreate it
+                    startForeground(NOTIFICATION_ID, createNotification());
+                }
+                // Schedule the next check
+                notificationHandler.postDelayed(this, NOTIFICATION_CHECK_INTERVAL);
+            }
+        }, NOTIFICATION_CHECK_INTERVAL);
+    }
+
+    // Check if the notification is visible
+    private boolean isNotificationVisible() {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        StatusBarNotification[] notifications = notificationManager.getActiveNotifications();
+        for (StatusBarNotification notification : notifications) {
+            if (notification.getId() == NOTIFICATION_ID) {
+                return true;
+            }
+        }
+        return false;
+
+
+}
 }
