@@ -1,13 +1,13 @@
 package com.example.finalbustraking;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
 import android.Manifest;
 import android.animation.ValueAnimator;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -40,9 +40,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class driverlocationparmission extends AppCompatActivity {
@@ -50,7 +48,7 @@ public class driverlocationparmission extends AppCompatActivity {
     private TextView textView1, textView2, textView3;
     private DrawerLayout drawerLayout;
     private ImageView menuIcon;
-    private AutoCompleteTextView autoSourceTextView,autoDesTextView;
+    private AutoCompleteTextView autoSourceTextView, autoDesTextView;
 
     private int currentX = 0; // Store the current X position of the underline
 
@@ -61,15 +59,22 @@ public class driverlocationparmission extends AppCompatActivity {
     private Handler locationUpdateHandler;
     private static final long LOCATION_UPDATE_INTERVAL = 5000; // 5 seconds
     private boolean locationPermissionGranted = false;
-    private List<String>  suggestions = new ArrayList<>(); // Declare suggestions as a class-level variable
+    private List<String> suggestions = new ArrayList<>(); // Declare suggestions as a class-level variable
 
     private boolean isLocationSharing = false; // Track if location sharing is active
     private TextView rec_loc;
+    private static final String TAG = "DriverLocationPermission"; // Add this line
+    private SharedPreferences sharedPreferences;
+    private static final String SHARED_PREF_KEY = "locationSharingState";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driverlocationparmission);
+        sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+
+        // Restoring the previous state
+        isLocationSharing = sharedPreferences.getBoolean(SHARED_PREF_KEY, false);
 
         // Initialize Firebase Realtime Database reference
         databaseRef = FirebaseDatabase.getInstance().getReference("locations");
@@ -87,21 +92,41 @@ public class driverlocationparmission extends AppCompatActivity {
         } else {
             requestLocationPermission();
         }
-
+        if (isLocationSharing) {
+            rec_loc.setText("Stop Location Sharing");
+        } else {
+            rec_loc.setText("Start Location Sharing");
+        }
         rec_loc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (locationPermissionGranted) {
+                    Intent serviceIntent = new Intent(driverlocationparmission.this, LocationSharingService.class);
+
                     if (!isLocationSharing) {
                         // If location sharing is not active, start sharing
-                        startLocationUpdates();
+                        serviceIntent.setAction(LocationSharingService.ACTION_START);
+                        startService(serviceIntent);
+
+
+
+
                         rec_loc.setText("Stop Location Sharing "); // Change the TextView text to "Stop"
                     } else {
                         // If location sharing is active, stop sharing
-                        stopLocationUpdates();
+                        serviceIntent.setAction(LocationSharingService.ACTION_STOP);
+                        stopService(serviceIntent);
+
+                        serviceIntent.setAction("STOP_LOCATION_SHARING"); // Add this action
+
+                        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                        notificationManager.cancel(1);
                         rec_loc.setText("Start Location Sharing "); // Change the TextView text to "Start"
                     }
                     isLocationSharing = !isLocationSharing; // Toggle the location sharing state
+                    sharedPreferences.edit().putBoolean(SHARED_PREF_KEY, isLocationSharing).apply();
+
                 } else {
                     requestLocationPermission();
                 }
@@ -281,60 +306,55 @@ public class driverlocationparmission extends AppCompatActivity {
         locationUpdateHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                getLocationAndSendData();
+//                getLocationAndSendData();
                 // Schedule the next location update after the specified interval
                 locationUpdateHandler.postDelayed(this, LOCATION_UPDATE_INTERVAL);
             }
         }, LOCATION_UPDATE_INTERVAL);
     }
 
-    private void getLocationAndSendData() {
-        if (locationPermissionGranted && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            fusedLocationClient.getLastLocation()
-                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
-                            if (location != null) {
-                                // Get latitude and longitude
-                                double latitude = location.getLatitude();
-                                double longitude = location.getLongitude();
+//    private void getLocationAndSendData() {
+//        if (locationPermissionGranted && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//            fusedLocationClient.getLastLocation()
+//                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+//                        @Override
+//                        public void onSuccess(Location location) {
+//                            if (location != null) {
+//                                // Get latitude and longitude
+//                                double latitude = location.getLatitude();
+//                                double longitude = location.getLongitude();
+//
+//                                // Create a unique key for the location entry
+//                                String locationKey = databaseRef.child("locations").push().getKey();
+//
+//                                // Get current device date and time as Date objects
+//                                Date currentDate = new Date();
+//
+//                                // Format device date and time as strings
+//                                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//                                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+//                                String deviceDate = dateFormat.format(currentDate);
+//                                String deviceTime = timeFormat.format(currentDate);
+//
+//                                // Build the location data
+//                                LocationData locationData = new LocationData(latitude, longitude);
+//                                locationData.setTimestamp(System.currentTimeMillis());
+//
+//                                // Set the formatted device date and time strings
+//                                locationData.setDeviceDate(deviceDate);
+//                                locationData.setDeviceTime(deviceTime);
+//
+//                                // Send location data to Firebase under the "locations" node with the unique key
+//                                databaseRef.child(locationKey).setValue(locationData);
+//
+//                                Toast.makeText(driverlocationparmission.this, "Location sent to server", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    });
+//        }
+//    }
 
-                                // Create a unique key for the location entry
-                                String locationKey = databaseRef.child("locations").push().getKey();
 
-                                // Get current device date and time as Date objects
-                                Date currentDate = new Date();
-
-                                // Format device date and time as strings
-                                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-                                String deviceDate = dateFormat.format(currentDate);
-                                String deviceTime = timeFormat.format(currentDate);
-
-                                // Build the location data
-                                LocationData locationData = new LocationData(latitude, longitude);
-                                locationData.setTimestamp(System.currentTimeMillis());
-
-                                // Set the formatted device date and time strings
-                                locationData.setDeviceDate(deviceDate);
-                                locationData.setDeviceTime(deviceTime);
-
-                                // Send location data to Firebase under the "locations" node with the unique key
-                                databaseRef.child(locationKey).setValue(locationData);
-
-                                Toast.makeText(driverlocationparmission.this, "Location sent to server", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-        }
-    }
-
-    // Implement a method to stop location updates
-    private void stopLocationUpdates() {
-        // Remove any pending callbacks from the handler to stop location updates
-        locationUpdateHandler.removeCallbacksAndMessages(null);
-        Toast.makeText(driverlocationparmission.this, "Location sharing stopped", Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     protected void onDestroy() {
@@ -359,4 +379,5 @@ public class driverlocationparmission extends AppCompatActivity {
         animator.setDuration(200);
         animator.start();
     }
+
 }
