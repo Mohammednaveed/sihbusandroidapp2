@@ -67,9 +67,18 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder> {
                 @Override
                 public void onClick(View v) {
                     // Start the tracking activity and pass the bus number
-                    Intent intent = new Intent(context, search.class);
+                    Intent intent = new Intent(context,tracking.class);
                     intent.putExtra("busnumber", bus.getbusnumber());
+                    intent.putExtra("busname", bus.getbusName());
+                    intent.putExtra("starttime",bus.getStartTime());
+                    intent.putExtra("endtime",bus.getendTime());
+
+
+
                     context.startActivity(intent);
+
+
+
                 }
             });
         }
