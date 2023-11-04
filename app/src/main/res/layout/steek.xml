@@ -1,0 +1,92 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#EFEFEF"
+    tools:ignore="MissingDefaultResource">
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/steek"
+        android:layout_width="wrap_content"
+        android:layout_height="190dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="285dp"
+        android:background="@drawable/rounded_underline_track">
+
+        <View
+            android:id="@+id/dot"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_centerInParent="false"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rounded_underline" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/arrival"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_centerInParent="false"
+        android:layout_centerVertical="false"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="25dp"
+        android:text="Source"
+        android:textColor="@color/black"
+
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/arrival_time"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_centerInParent="false"
+        android:layout_centerVertical="false"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:text="Arrival"
+        android:textColor="@color/black"
+
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/apprit_time"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_centerInParent="false"
+        android:layout_centerVertical="false"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="55dp"
+        android:text="Arrival"
+        android:textColor="@color/black"
+
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/km"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_centerInParent="false"
+        android:layout_centerVertical="false"
+        android:layout_marginLeft="143dp"
+        android:layout_marginTop="55dp"
+        android:text="km"
+        android:textColor="@color/black"
+
+        android:textSize="15sp" />
+
+</RelativeLayout>
+
+
+
+
+
+</LinearLayout>

@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,7 +50,7 @@ public class driverlocationparmission extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ImageView menuIcon;
     private AutoCompleteTextView autoSourceTextView, autoDesTextView;
-
+    private Button searchButton;
     private int currentX = 0; // Store the current X position of the underline
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
@@ -195,8 +196,29 @@ public class driverlocationparmission extends AppCompatActivity {
                         Log.e(TAG, "Error fetching data from Firestore", e);
                     }
                 });
-        Button searchButton = findViewById(R.id.searchButton);
+         searchButton = findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String Source= autoSourceTextView.getText().toString();
+                String Destination = autoDesTextView.getText().toString();
+                if(TextUtils.isEmpty(Source) || TextUtils.isEmpty(Destination)){
+                    Toast.makeText(driverlocationparmission.this, "Enter the field properly", Toast.LENGTH_SHORT).show();
 
+                } else if (Source.equals(Destination)) {
+
+                    Toast.makeText(driverlocationparmission.this, "Both field should not be same ", Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+                    Intent intent = new Intent(driverlocationparmission.this, search.class);
+                    intent.putExtra("Source", Source);
+                    intent.putExtra("Destination", Destination);
+
+                    startActivity(intent);
+                }
+            }
+        });
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

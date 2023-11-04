@@ -5,8 +5,16 @@ public class Bus {
     private String startTime;
     private String endtime;
     private String busname;
+    private String source;
+    private String destination;
     public String getbusnumber() {
         return busnumber;
+    }
+    public String getsource() {
+        return source;
+    }
+    public String getdestination() {
+        return destination;
     }
     public String getStartTime() {
         return startTime;

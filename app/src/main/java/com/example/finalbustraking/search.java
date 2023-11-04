@@ -16,10 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class search extends AppCompatActivity {
     private TextView sourceTextView, destinationTextView;
@@ -38,17 +40,8 @@ public class search extends AppCompatActivity {
         BusAdapter adapter = new BusAdapter();
         recyclerView.setAdapter(adapter);
 
-        // Fetch data from Firestore
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference busCollection = db.collection("busDetails");
-        busCollection.get().addOnSuccessListener(queryDocumentSnapshots -> {
-            List<Bus> busList = new ArrayList<>();
-            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                Bus bus = document.toObject(Bus.class);
-                busList.add(bus);
-            }
-            adapter.setBusList(busList); // Update the adapter with data
-        });
+
         Intent intent = getIntent();
         String receivedSource = intent.getStringExtra("Source");
         String receivedDestination = intent.getStringExtra("Destination");
@@ -110,10 +103,48 @@ public class search extends AppCompatActivity {
         sourceTextView.setText(receivedSource);
         destinationTextView.setText(receivedDestination);
         backicon.setOnClickListener(view -> finish());
+
+        // Find the bus numbers based on source and destination
+        CollectionReference journeyCollection = db.collection("journeyDetails");
+        Query journeyQuery = journeyCollection
+                .whereEqualTo("source", receivedSource)
+                .whereEqualTo("destination", receivedDestination);
+
+        journeyQuery.get().addOnSuccessListener(journeyQueryDocumentSnapshots -> {
+            List<String> busNumbers = new ArrayList<>();
+            for (QueryDocumentSnapshot journeyDocument : journeyQueryDocumentSnapshots) {
+                String busNumber = journeyDocument.getString("busnumber");
+                busNumbers.add(busNumber);
+            }
+
+            // Fetch bus details based on the found bus numbers
+            fetchBusDetails(db.collection("busDetails"), adapter, busNumbers);
+        });
     }
 
     private void setRadioState(RadioButton radioButton, boolean checked) {
         radioButton.setChecked(checked);
     }
 
+    private void fetchBusDetails(CollectionReference busCollection, BusAdapter adapter, List<String> busNumbers) {
+        List<Bus> busList = new ArrayList<>();
+        AtomicInteger queryCounter = new AtomicInteger(0);
+
+        for (String busNumber : busNumbers) {
+            Query busQuery = busCollection.whereEqualTo("busnumber", busNumber);
+
+            busQuery.get().addOnSuccessListener(busQueryDocumentSnapshots -> {
+                for (QueryDocumentSnapshot busDocument : busQueryDocumentSnapshots) {
+                    Bus bus = busDocument.toObject(Bus.class);
+                    busList.add(bus);
+                }
+
+                queryCounter.incrementAndGet();
+
+                if (queryCounter.get() == busNumbers.size()) {
+                    adapter.setBusList(busList);
+                }
+            });
+        }
+    }
 }

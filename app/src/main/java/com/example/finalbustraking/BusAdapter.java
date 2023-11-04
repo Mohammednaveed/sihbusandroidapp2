@@ -16,6 +16,7 @@ import java.util.List;
 
 public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder> {
     private List<Bus> busList = new ArrayList<>();
+    private Context context; // Added context for starting the tracking activity
 
     public void setBusList(List<Bus> busList) {
         this.busList = busList;
@@ -25,7 +26,8 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder> {
     @NonNull
     @Override
     public BusViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_bus, parent, false);
+        context = parent.getContext(); // Initialize the context
+        View view = LayoutInflater.from(context).inflate(R.layout.search_bus, parent, false);
         return new BusViewHolder(view);
     }
 
@@ -46,8 +48,7 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder> {
         private TextView endTimeTextView;
         private TextView busNameTextView;
         private RelativeLayout myRelativeLayout;
-        private Context context;
-        private Intent intent;
+
         public BusViewHolder(@NonNull View itemView) {
             super(itemView);
             busNumberTextView = itemView.findViewById(R.id.busnumber);
@@ -55,8 +56,6 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder> {
             endTimeTextView = itemView.findViewById(R.id.endtime);
             busNameTextView = itemView.findViewById(R.id.busname);
             myRelativeLayout = itemView.findViewById(R.id.busclick);
-            context = itemView.getContext();
-            intent = new Intent(context, tracking.class);
         }
 
         public void bind(Bus bus) {
@@ -67,7 +66,9 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder> {
             myRelativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Start the Intent when clicked
+                    // Start the tracking activity and pass the bus number
+                    Intent intent = new Intent(context, search.class);
+                    intent.putExtra("busnumber", bus.getbusnumber());
                     context.startActivity(intent);
                 }
             });
