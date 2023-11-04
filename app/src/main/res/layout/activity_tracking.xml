@@ -138,7 +138,8 @@
     android:background="#D5000000"
     android:layout_alignParentStart="true"
     android:layout_alignParentEnd="true"
-    android:layout_alignParenttop="true"
+    android:layout_alignParenttop="false"
+
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
     >
