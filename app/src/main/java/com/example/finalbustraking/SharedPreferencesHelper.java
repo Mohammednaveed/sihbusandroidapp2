@@ -7,6 +7,19 @@ public class SharedPreferencesHelper {
     private static final String PREFS_NAME = "MyPrefs";
     private static final String IS_LOGGED_IN = "isLoggedIn";
     private static final String USER_TYPE = "userType";
+    private static final String DRIVER_NUMBER = "driverNumber"; // New constant
+    private static final String SHARED_PREF_NAME = "MyPrefs";
+    public static void setDriverNumber(Context context, String driverNumber) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(DRIVER_NUMBER, driverNumber);
+        editor.apply();
+    }
+
+    public static String getDriverNumber(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(DRIVER_NUMBER, "");
+    }
 
     public static void setLoggedIn(Context context, boolean loggedIn) {
         SharedPreferences.Editor editor = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit();

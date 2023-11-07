@@ -72,6 +72,8 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder> {
                     intent.putExtra("busname", bus.getbusName());
                     intent.putExtra("starttime",bus.getStartTime());
                     intent.putExtra("endtime",bus.getendTime());
+                    intent.putExtra("source",bus.getsource());
+                    intent.putExtra("destination",bus.getdestination());
 
 
 

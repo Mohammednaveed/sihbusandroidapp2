@@ -131,53 +131,55 @@
             android:src="@drawable/baseline_share_24" />
 
     </RelativeLayout>
-<RelativeLayout
-    android:id="@+id/info"
-    android:layout_width="match_parent"
-    android:layout_height="35dp"
-    android:background="#D5000000"
-    android:layout_alignParentStart="true"
-    android:layout_alignParentEnd="true"
-    android:layout_alignParentTop="@+id/relativeLayout"
 
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
-    >
-    <TextView
-        android:id="@+id/arrival"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_centerInParent="false"
-        android:layout_centerVertical="false"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="3dp"
-        android:text="Arrival"
-        android:textColor="@color/white"
+    <RelativeLayout
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="@+id/relativeLayout"
+        android:layout_alignParentEnd="true"
+        android:background="#D5000000"
 
-        android:textSize="20sp"
-    />
-    <TextView
-        android:id="@+id/departure"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_centerInParent="false"
-        android:layout_centerVertical="false"
-        android:layout_marginLeft="295dp"
-        android:layout_marginTop="3dp"
-        android:text="Departure"
-        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
 
-        android:textSize="20sp"
-        />
+        <TextView
+            android:id="@+id/arrival"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="false"
+            android:layout_centerVertical="false"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="3dp"
+            android:text="Arrival"
+            android:textColor="@color/white"
 
-</RelativeLayout>
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/departure"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="false"
+            android:layout_centerVertical="false"
+            android:layout_marginLeft="295dp"
+            android:layout_marginTop="3dp"
+            android:text="Departure"
+            android:textColor="@color/white"
+
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
     <include
+        android:id="@+id/steekLayout"
         layout="@layout/steek"
-        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/relativeLayout"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+        android:layout_marginTop="35dp"
+        app:layout_constraintTop_toTopOf="@+id/info"
+        tools:layout_editor_absoluteX="0dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

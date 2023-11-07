@@ -10,8 +10,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
@@ -24,7 +26,7 @@ public class login extends AppCompatActivity {
     private MaterialButton login1;
     private ProgressBar progressBar;
     private boolean passwordVisible = false;
-
+    String email1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,8 @@ public class login extends AppCompatActivity {
         login1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 String email1 = emailEditText1.getText().toString();
                 String pass1 = passEditText1.getText().toString();
 
@@ -91,6 +95,7 @@ public class login extends AppCompatActivity {
         });
 
         hidePassword();
+
     }
 
     private void togglePasswordVisibility() {
@@ -124,6 +129,13 @@ public class login extends AppCompatActivity {
                         String storedPassword = document.getString("password");
                         if (pass1.equals(storedPassword)) {
                             String userType = document.getString("usertype");
+                            String driverNumber = document.getString("phone");
+                            SharedPreferencesHelper.setDriverNumber(login.this, driverNumber);
+
+                            Intent locationServiceIntent = new Intent(login.this, LocationSharingService.class);
+                            locationServiceIntent.setAction(LocationSharingService.ACTION_START);
+                            locationServiceIntent.putExtra("driverNumber", driverNumber); // Pass the driverNumber
+                            startService(locationServiceIntent);
                             SharedPreferencesHelper.setLoggedIn(login.this, true);
                             SharedPreferencesHelper.setUserType(login.this, userType);
                             launchAppropriateActivity(userType);

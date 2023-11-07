@@ -50,6 +50,7 @@ public class LocationSharingService  extends Service {
     private WakeLock wakeLock; // Declare the WakeLock as a class-level variable
 
     private boolean isLocationSharing = false; // Track if location sharing is active
+     String driverNumber;
 
     public LocationSharingService() {
     }
@@ -61,7 +62,7 @@ public class LocationSharingService  extends Service {
         notificationHandler = new Handler();
         startNotificationChecker();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
+//        Intent intent = getIntent();
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "LocationTrackingService:WakeLock");
 
@@ -78,7 +79,7 @@ public class LocationSharingService  extends Service {
                 if (location != null) {
                     if (isLocationSharing) {
                         // Send the location data to Firebase Realtime Database
-                        sendLocationToFirebase(location);
+                        sendLocationToFirebase(location,driverNumber);
                     }
                 }
             }
@@ -90,6 +91,8 @@ public class LocationSharingService  extends Service {
         if (intent != null && intent.getAction() != null) {
             if (intent.getAction().equals(ACTION_START)) {
                 isLocationSharing = true;
+                 driverNumber = SharedPreferencesHelper.getDriverNumber(this);
+
                 createNotificationChannel(); // Create the notification channel
                 if (!isNotificationPermissionGranted()) {
                     // If permission is not granted, request it
@@ -148,7 +151,6 @@ public class LocationSharingService  extends Service {
                 .setContentText("Running in the background")
                 .setSmallIcon(R.drawable.playstore)
                 .setContentIntent(pendingIntent)
-
                 .build();
     }
 
@@ -167,29 +169,31 @@ public class LocationSharingService  extends Service {
         fusedLocationClient.removeLocationUpdates(locationCallback);
     }
 
-    private void sendLocationToFirebase(Location location) {
-        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("locations");
-        // Create a unique key for the location entry
-        String locationKey = databaseRef.child("locations").push().getKey();
+    private void sendLocationToFirebase(Location location,String driverNumber) {
 
-        // Get current device date and time as Date objects
-        Date currentDate = new Date();
+            DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("locations");
 
-        // Format device date and time as strings
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-        String deviceDate = dateFormat.format(currentDate);
-        String deviceTime = timeFormat.format(currentDate);
+            // Create a unique key for the location entry
+            String locationKey = driverNumber;
 
-        // Build the location data
-        LocationData locationData = new LocationData(location.getLatitude(), location.getLongitude());
-        locationData.setTimestamp(System.currentTimeMillis());
-        locationData.setDeviceDate(deviceDate);
-        locationData.setDeviceTime(deviceTime);
+            // Get current device date and time as Date objects
+            Date currentDate = new Date();
 
-        // Send location data to Firebase under the "locations" node with the unique key
-        databaseRef.child(locationKey).setValue(locationData);
-    }
+            // Format device date and time as strings
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+            String deviceDate = dateFormat.format(currentDate);
+            String deviceTime = timeFormat.format(currentDate);
+
+            // Build the location data
+            LocationData locationData = new LocationData(location.getLatitude(), location.getLongitude());
+            locationData.setTimestamp(System.currentTimeMillis());
+            locationData.setDeviceDate(deviceDate);
+            locationData.setDeviceTime(deviceTime);
+
+            // Send location data to Firebase under the "locations" node with the unique key
+            databaseRef.child(locationKey).setValue(locationData);
+        }
 
     private void requestNotificationPermission() {
         Intent intent = new Intent();

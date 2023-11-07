@@ -50,6 +50,9 @@ public class search extends AppCompatActivity {
         backicon = findViewById(R.id.back_icon);
 
         autoCompleteTextView = findViewById(R.id.autoCompleteTextView);
+
+
+
         autoCompleteTextView.setOnClickListener(view -> {
             // Create a custom dialog
             Dialog dialog = new Dialog(this);

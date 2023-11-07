@@ -4,38 +4,44 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#EFEFEF"
-    android:layout_marginTop="0dp"
+
     tools:ignore="MissingDefaultResource">
 <RelativeLayout
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
 
     <RelativeLayout
         android:id="@+id/steek"
-        android:layout_width="wrap_content"
+        android:layout_width="17dp"
         android:layout_height="190dp"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="100dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="285dp"
+        android:layout_marginLeft="100dp"
         android:background="@drawable/rounded_underline_track">
 
         <View
-            android:id="@+id/dot"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:id="@+id/dotscr"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:layout_centerInParent="false"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="3.5dp"
             android:layout_marginTop="15dp"
+            android:background="@drawable/rounded_underline" />
+
+        <View
+            android:id="@+id/dotdes"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_centerInParent="false"
+            android:layout_marginLeft="3.5dp"
+            android:layout_marginTop="160dp"
             android:background="@drawable/rounded_underline" />
 
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/arrival"
+        android:id="@+id/Source"
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_centerInParent="false"
@@ -46,19 +52,30 @@
         android:textColor="@color/black"
 
         android:textSize="20sp" />
-
     <TextView
-        android:id="@+id/arrival_time"
-        android:layout_width="80dp"
+        android:id="@+id/des"
+        android:layout_width="110dp"
         android:layout_height="30dp"
         android:layout_centerInParent="false"
         android:layout_centerVertical="false"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="25dp"
-        android:text="Arrival"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="170dp"
+        android:text="Destination"
         android:textColor="@color/black"
 
         android:textSize="20sp" />
+    <TextView
+        android:id="@+id/kmdes"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_centerInParent="false"
+        android:layout_centerVertical="false"
+        android:layout_marginLeft="143dp"
+        android:layout_marginTop="195dp"
+        android:text="km"
+        android:textColor="@color/black"
+
+        android:textSize="15sp" />
     <TextView
         android:id="@+id/apprit_time"
         android:layout_width="70dp"
@@ -71,6 +88,7 @@
         android:textColor="@color/black"
 
         android:textSize="20sp" />
+
     <TextView
         android:id="@+id/km"
         android:layout_width="50dp"
@@ -83,6 +101,46 @@
         android:textColor="@color/black"
 
         android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/Departure"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_centerInParent="false"
+        android:layout_centerVertical="false"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="25dp"
+        android:text="Departure"
+        android:textColor="@color/black"
+
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/Departure_time"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_centerInParent="false"
+        android:layout_centerVertical="false"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="55dp"
+        android:text="Departure"
+        android:textColor="@color/black"
+
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/arrival_time"
+        android:layout_width="83dp"
+        android:layout_height="30dp"
+        android:layout_centerInParent="false"
+        android:layout_centerVertical="false"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:text="Arrival"
+        android:textColor="@color/black"
+
+        android:textSize="20sp" />
+
 
 </RelativeLayout>
 

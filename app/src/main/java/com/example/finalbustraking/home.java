@@ -132,10 +132,13 @@ public class home extends AppCompatActivity {
                 }
                 else {
                     Intent intent = new Intent(home.this, search.class);
+                    Intent intent1 = new Intent(home.this, tracking.class);
+
                     intent.putExtra("Source", Source);
                     intent.putExtra("Destination", Destination);
 
                     startActivity(intent);
+                    startActivity(intent1);
                 }
             }
         });
